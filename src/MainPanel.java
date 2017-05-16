@@ -70,7 +70,6 @@ public class MainPanel extends JPanel {
         g.setFont(new Font("Jokerman", Font.PLAIN, 35));
 
         if (!started) {
-//            g.drawString("Score: " + String.valueOf(score), 120, 130);
             if (died) {
                 g.drawString("Game Over!", 100, 80);
                 g.drawString("Score: " + String.valueOf(score), 120, 130);
