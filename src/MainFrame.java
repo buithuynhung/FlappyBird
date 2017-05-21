@@ -1,12 +1,12 @@
 import javax.swing.*;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
     private MainPanel panel;
+    private Size size = new Size();
 
     private MainFrame(String s) {
         super(s);
-        setSize(400, 600);
-        setLocation(500, 50);
+        setSize(size.widthMFrame, size.heightMFrame);
         panel = new MainPanel();
         this.setContentPane(panel);
         setVisible(true);

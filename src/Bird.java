@@ -5,13 +5,14 @@ public class Bird {
     private Color color;
     public Pipes pipe;
     private int ticks, yMotion;
+    private Size frame = new Size();
 
-    public Bird(int x, int y, int size, Color color, Pipes pipe) {
+    public Bird(int x, int y, int size, Color color/*, Pipes pipe*/) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.color = color;
-        this.pipe = pipe;
+//        this.pipe = pipe;
     }
 
     public void moveDown() {
@@ -30,7 +31,7 @@ public class Bird {
     }
 
     public Boolean touchFloor() {
-        if (y + 30 >= 500) return true;
+        if (y + size >= frame.heightMFrame - frame.heightForeground) return true;
         return false;
     }
 
@@ -38,19 +39,19 @@ public class Bird {
 
         int deltaX1 = pipe.getX1() - x;
         if (-size <= deltaX1 && deltaX1 <= pipe.getWidth()) {
-            if (y < pipe.getH1() || y - pipe.getH1() > 70)
+            if (y <= pipe.getH1() || y - pipe.getH1() >= pipe.getSpace2() - size )
                 return true;
         }
 
         int deltaX2 = pipe.getX2() - x;
         if (-size <= deltaX2 && deltaX2 <= pipe.getWidth()) {
-            if (y < pipe.getH2() || y - pipe.getH2() > 70)
+            if (y < pipe.getH2() || y - pipe.getH2() > pipe.getSpace2() - size)
                 return true;
         }
 
         int deltaX3 = pipe.getX3() - x;
         if (-size <= deltaX3 && deltaX3 <= pipe.getWidth()) {
-            if (y < pipe.getH3() || y - pipe.getH3() > 70)
+            if (y < pipe.getH3() || y - pipe.getH3() > pipe.getSpace2() - size)
                 return true;
         }
 

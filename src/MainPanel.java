@@ -3,31 +3,41 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainPanel extends JPanel {
-    private Pipes pipe = new Pipes(500, 0, 90, new Color(50, 235, 50));
-    private Bird bird = new Bird(80, 200, 30, Color.YELLOW, pipe);
-    private Score result = new Score(pipe, bird);
     private volatile boolean died, started = false;
-    private GameOver game = new GameOver(bird);
     private int score;
+    private Size size = new Size();
+    private Game game = new Game();
 
     public MainPanel() {
         setBackground(new Color(0, 191, 255));
+        died = game.gameOver();
 
         ActionListener timerListener = (ActionEvent e) -> {
             if (started) {
                 score = 0;
                 died = false;
-                pipe.scroll();
+                game.step();
+                score = game.getScore();
+                died = game.gameOver();
+                if (died) {
+                    started = false;
+                    game = new Game();
+                }
+
+               /* score = 0;
+                died = false;
+
+                pipe.scroll(5);
                 bird.moveDown();
                 score = result.getScore();
                 died = game.gameOver();
                 if (died) {
                     started = false;
-                    pipe = new Pipes(500, 0, 90, new Color(50, 235, 50));
-                    bird = new Bird(80, 200, 30, Color.YELLOW, pipe);
+                    pipe = new Pipes(500, 0, 90, new Color(50, 235, 50), 100);
+                    bird = new Bird(80, 200, 30, Color.YELLOW);
                     result = new Score(pipe, bird);
                     game = new GameOver(bird);
-                }
+                }*/
             }
             repaint();
         };
@@ -38,7 +48,7 @@ public class MainPanel extends JPanel {
                 if (!started) {
                     started = true;
                 }
-                bird.moveUp();
+                game.getBird().moveUp();
             }
         };
 
@@ -52,29 +62,29 @@ public class MainPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        bird.paintBird(g);
-        pipe.paintPipes(g);
-        paintMFrame(g);
+        game.getBird().paintBird(g);
+        game.getPipe().paintPipes(g);
+        paintBackground(g);
     }
 
 
-    public void paintMFrame(Graphics g) {
+    public void paintBackground(Graphics g) {
 
         g.setColor(new Color(205, 133, 63));
-        g.fillRect(0, 500, 1500, 10);
+        g.fillRect(0, size.heightMFrame - size.heightForeground, size.widthScreen, 10);
 
         g.setColor(new Color(67, 50, 33));
-        g.fillRect(0, 510, 1500, 500);
+        g.fillRect(0, size.heightMFrame - size.heightForeground + 10, size.widthScreen, 500);
 
         g.setColor(Color.orange.brighter());
         g.setFont(new Font("Jokerman", Font.PLAIN, 35));
 
         if (!started) {
             if (died) {
-                g.drawString("Game Over!", 100, 80);
-                g.drawString("Score: " + String.valueOf(score), 120, 130);
-            } else g.drawString("Click to start!", 75, 100);
-        } else  g.drawString(String.valueOf(score), 180, 50);
+                g.drawString("Game Over!", size.widthMFrame / 4, size.heightMFrame / 8);
+                g.drawString("Score: " + String.valueOf(game.getScore()), size.widthMFrame / 4 + 20, size.heightMFrame / 8 + 75);
+            } else g.drawString("Click to start!", size.widthMFrame / 5, size.heightMFrame / 6);
+        } else  g.drawString(String.valueOf(game.getScore()), size.widthMFrame / 2, size.heightMFrame / 10);
 
     }
 }
