@@ -5,7 +5,6 @@ public class Pipes {
     private final int space1 , space2 ;
     private int x1, x2, x3;
     private int h1, h2, h3;
-    private boolean flag1 = false, flag2 = false, flag3 = false;
     private int y, width;
     private Size size = new Size();
     private Color color;
@@ -20,6 +19,9 @@ public class Pipes {
         space1 = (size.widthScreen - width)/3;
         x2 = x1 + space1 + width;
         x3 = x2 + space1 + width;
+        h1 = randomNumber(50, 350);
+        h2 = randomNumber(50, 350);
+        h3 = randomNumber(50, 350);
     }
 
     public void scroll(int speed) {
@@ -29,17 +31,14 @@ public class Pipes {
 
         if (x1 == -width) {
             x1 = space1 * 3 + width * 2;
-            flag1 = false;
         }
 
         if (x2 == -width) {
             x2 = space1 * 3 + width * 2;
-            flag2 = false;
         }
 
         if (x3 == -width) {
             x3 = space1 * 3 + width * 2;
-            flag3 = false;
         }
     }
 
@@ -55,27 +54,8 @@ public class Pipes {
         }
     }
 
-    public void heightRandom() {
-        if (!flag1) {
-            h1 = randomNumber(50, 350);
-
-            flag1 = true;
-        }
-
-        if (!flag2) {
-            h2 = randomNumber(50, 350);
-            flag2 = true;
-        }
-
-        if (!flag3) {
-            h3 = randomNumber(50, 350);
-            flag3 = true;
-        }
-    }
-
     public void paintPipes(Graphics g) {
-        heightRandom();
-
+        
         g.setColor(color);
 
         g.fillRect(x1, y, width, h1);
