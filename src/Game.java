@@ -13,10 +13,10 @@ public class Game {
 
 
     public Game() {
+        pipe = new Pipes(xPipe, yPipe, widthPipe, colorPipe, space2);  
         xPipe = size.widthScreen - pipe.getWidth();
         xBird = size.widthMFrame / 5;
         yBird = size.heightMFrame / 3;
-        pipe = new Pipes(xPipe, yPipe, widthPipe, colorPipe, space2);
         bird = new Bird(xBird, yBird, sizeBird, colorBird);
     }
 
