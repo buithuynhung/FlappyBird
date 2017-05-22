@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Game {
     private int xPipe, yPipe = 0, widthPipe = 90, space2 = 100,
-            xBird, yBird, sizeBird = 30;
+            xBird, yBird, sizeBird = 30, speed = 5;
     private Color colorPipe = new Color(50, 235, 50),
             colorBird = Color.YELLOW;
     private Pipes pipe;
@@ -13,14 +13,14 @@ public class Game {
 
 
     public Game() {
-        pipe = new Pipes(xPipe, yPipe, widthPipe, colorPipe, space2);  
-        xPipe = size.widthScreen - pipe.getWidth();
+        xPipe = size.widthScreen - widthPipe;
+        pipe = new Pipes(xPipe, yPipe, widthPipe, colorPipe, space2);
         xBird = size.widthMFrame / 5;
         yBird = size.heightMFrame / 3;
-        bird = new Bird(xBird, yBird, sizeBird, colorBird);
+        bird = new Bird(xBird, yBird, sizeBird, colorBird, pipe);
     }
 
-    public void score() {
+    public int getScore() {
         if (bird.getX() + bird.getSize() > pipe.getX1()
                 && bird.getX() < pipe.getX1() + pipe.getWidth())
             goOverpipe1 = false;
@@ -44,6 +44,7 @@ public class Game {
             score++;
             goOverpipe3 = true;
         }
+        return score;
     }
 
     public boolean gameOver() {
@@ -55,13 +56,9 @@ public class Game {
 
     public void step() {
         if (!gameOver()) {
-            pipe.scroll(5);
+            pipe.scroll(speed);
             bird.moveDown();
         }
-    }
-
-    public int getScore() {
-        return score;
     }
 
     public Pipes getPipe() {

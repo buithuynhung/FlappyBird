@@ -7,17 +7,17 @@ public class Bird {
     private int ticks, yMotion;
     private Size frame = new Size();
 
-    public Bird(int x, int y, int size, Color color/*, Pipes pipe*/) {
+    public Bird(int x, int y, int size, Color color, Pipes pipe) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.color = color;
-//        this.pipe = pipe;
+        this.pipe = pipe;
     }
 
     public void moveDown() {
-        ticks ++;
-        if(ticks % 2 == 0 && yMotion < 16) {
+        ticks++;
+        if (ticks % 2 == 0 && yMotion < 16) {
             yMotion += 1;
         }
         y += yMotion;
@@ -39,7 +39,7 @@ public class Bird {
 
         int deltaX1 = pipe.getX1() - x;
         if (-size <= deltaX1 && deltaX1 <= pipe.getWidth()) {
-            if (y <= pipe.getH1() || y - pipe.getH1() >= pipe.getSpace2() - size )
+            if (y <= pipe.getH1() || y - pipe.getH1() >= pipe.getSpace2() - size)
                 return true;
         }
 

@@ -3,14 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainPanel extends JPanel {
-    private volatile boolean died, started = false;
+    private boolean died, started = false;
     private int score;
     private Size size = new Size();
     private Game game = new Game();
 
     public MainPanel() {
         setBackground(new Color(0, 191, 255));
-        died = game.gameOver();
 
         ActionListener timerListener = (ActionEvent e) -> {
             if (started) {
@@ -23,21 +22,6 @@ public class MainPanel extends JPanel {
                     started = false;
                     game = new Game();
                 }
-
-               /* score = 0;
-                died = false;
-
-                pipe.scroll(5);
-                bird.moveDown();
-                score = result.getScore();
-                died = game.gameOver();
-                if (died) {
-                    started = false;
-                    pipe = new Pipes(500, 0, 90, new Color(50, 235, 50), 100);
-                    bird = new Bird(80, 200, 30, Color.YELLOW);
-                    result = new Score(pipe, bird);
-                    game = new GameOver(bird);
-                }*/
             }
             repaint();
         };
@@ -82,9 +66,9 @@ public class MainPanel extends JPanel {
         if (!started) {
             if (died) {
                 g.drawString("Game Over!", size.widthMFrame / 4, size.heightMFrame / 8);
-                g.drawString("Score: " + String.valueOf(game.getScore()), size.widthMFrame / 4 + 20, size.heightMFrame / 8 + 75);
+                g.drawString("Score: " + String.valueOf(score), size.widthMFrame / 4 + 20, size.heightMFrame / 8 + 75);
             } else g.drawString("Click to start!", size.widthMFrame / 5, size.heightMFrame / 6);
-        } else  g.drawString(String.valueOf(game.getScore()), size.widthMFrame / 2, size.heightMFrame / 10);
+        } else  g.drawString(String.valueOf(score), size.widthMFrame / 2, size.heightMFrame / 10);
 
     }
 }

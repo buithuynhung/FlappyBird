@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.*;
 
 public class Pipes {
-    private final int space1 , space2 ;
+    private final int space1, space2;
     private int x1, x2, x3;
     private int h1, h2, h3;
     private int y, width;
@@ -16,7 +16,7 @@ public class Pipes {
         this.y = y;
         this.width = width;
         this.space2 = space2;
-        space1 = (size.widthScreen - width)/3;
+        space1 = (size.widthScreen - width) / 3;
         x2 = x1 + space1 + width;
         x3 = x2 + space1 + width;
         h1 = randomNumber(50, 350);
@@ -29,15 +29,15 @@ public class Pipes {
         x2 -= speed;
         x3 -= speed;
 
-        if (x1 == -width) {
+        if (x1 <= -width) {
             x1 = space1 * 3 + width * 2;
         }
 
-        if (x2 == -width) {
+        if (x2 <= -width) {
             x2 = space1 * 3 + width * 2;
         }
 
-        if (x3 == -width) {
+        if (x3 <= -width) {
             x3 = space1 * 3 + width * 2;
         }
     }
@@ -55,7 +55,7 @@ public class Pipes {
     }
 
     public void paintPipes(Graphics g) {
-        
+
         g.setColor(color);
 
         g.fillRect(x1, y, width, h1);
