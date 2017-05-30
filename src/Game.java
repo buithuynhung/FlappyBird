@@ -25,7 +25,7 @@ public class Game {
 
         xBird = width / 5;
         yBird = height / 3;
-        bird = new Bird(xBird, yBird, sizeBird, colorBird);
+        bird = new Bird(xBird, yBird, sizeBird, colorBird, border);
 
         addPipe(true);
         addPipe(true);
@@ -79,8 +79,7 @@ public class Game {
             if (pipe.killBird(bird)) return true;
         }
 
-        return (bird.getY() + bird.getSize() >= border);
-
+        return bird.touchBorder();
     }
 
     public int getScore() {

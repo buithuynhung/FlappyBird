@@ -4,12 +4,14 @@ public class Bird {
 
     private int x, y, size, ticks, yMotion;
     private Color color;
+    private final int border;
 
-    public Bird(int x, int y, int size, Color color) {
+    public Bird(int x, int y, int size, Color color, int border) {
         this.x = x;
         this.y = y;
         this.size = size;
         this.color = color;
+        this.border = border;
     }
 
     public void moveDown() {
@@ -25,6 +27,10 @@ public class Bird {
             yMotion = 0;
         }
         yMotion -= 7;
+    }
+
+    public boolean touchBorder() {
+        return (y + size >= border || y < 0);
     }
 
     public void paintBird(Graphics g) {
