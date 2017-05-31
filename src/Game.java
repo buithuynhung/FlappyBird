@@ -59,7 +59,7 @@ public class Game {
         }
     }
 
-    public void addPipe(boolean start) {
+    private void addPipe(boolean start) {
 
         int height = 50 + rd.nextInt(250);
 
